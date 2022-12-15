@@ -1,0 +1,6 @@
+domain: sample-operator.dev
+layout:
+- go.kubebuilder.io/v3
+projectName: kube-operator-basic
+repo: github.com/ragul28/kube-operator-basic
+version: "3"
