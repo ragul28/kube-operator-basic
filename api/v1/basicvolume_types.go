@@ -29,13 +29,15 @@ type BasicVolumeSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of BasicVolume. Edit basicvolume_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Name string `json:"name,omitempty"`
+	Size int    `json:"size,omitempty"`
 }
 
 // BasicVolumeStatus defines the observed state of BasicVolume
 type BasicVolumeStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+	Name string `json:"name,omitempty"`
 }
 
 //+kubebuilder:object:root=true
