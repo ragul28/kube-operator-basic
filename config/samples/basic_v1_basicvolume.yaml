@@ -1,0 +1,12 @@
+apiVersion: basic.sample-operator.dev/v1
+kind: BasicVolume
+metadata:
+  labels:
+    app.kubernetes.io/name: basicvolume
+    app.kubernetes.io/instance: basicvolume-sample
+    app.kubernetes.io/part-of: kube-operator-basic
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: kube-operator-basic
+  name: basicvolume-sample
+spec:
+  # TODO(user): Add fields here

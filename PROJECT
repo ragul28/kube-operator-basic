@@ -3,4 +3,14 @@ layout:
 - go.kubebuilder.io/v3
 projectName: kube-operator-basic
 repo: github.com/ragul28/kube-operator-basic
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: sample-operator.dev
+  group: basic
+  kind: BasicVolume
+  path: github.com/ragul28/kube-operator-basic/api/v1
+  version: v1
 version: "3"

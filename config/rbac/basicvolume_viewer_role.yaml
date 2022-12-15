@@ -1,0 +1,27 @@
+# permissions for end users to view basicvolumes.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: basicvolume-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: kube-operator-basic
+    app.kubernetes.io/part-of: kube-operator-basic
+    app.kubernetes.io/managed-by: kustomize
+  name: basicvolume-viewer-role
+rules:
+- apiGroups:
+  - basic.sample-operator.dev
+  resources:
+  - basicvolumes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - basic.sample-operator.dev
+  resources:
+  - basicvolumes/status
+  verbs:
+  - get

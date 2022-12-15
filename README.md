@@ -2,9 +2,15 @@
 
 ## Getting Started
 
+* Create project using init command
 ```sh
 mkdir -p kube-operator-basic
 kubebuilder init --domain sample-operator.dev --repo github.com/ragul28/kube-operator-basic
+```
+
+* Create custom resource
+```sh
+kubebuilder create api --group basic --version v1 --kind BasicVolume
 ```
 
 ### Running on the cluster

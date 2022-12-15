@@ -1,0 +1,31 @@
+# permissions for end users to edit basicvolumes.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: basicvolume-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: kube-operator-basic
+    app.kubernetes.io/part-of: kube-operator-basic
+    app.kubernetes.io/managed-by: kustomize
+  name: basicvolume-editor-role
+rules:
+- apiGroups:
+  - basic.sample-operator.dev
+  resources:
+  - basicvolumes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - basic.sample-operator.dev
+  resources:
+  - basicvolumes/status
+  verbs:
+  - get

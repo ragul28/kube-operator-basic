@@ -1,0 +1,33 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - basic.sample-operator.dev
+  resources:
+  - basicvolumes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - basic.sample-operator.dev
+  resources:
+  - basicvolumes/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - basic.sample-operator.dev
+  resources:
+  - basicvolumes/status
+  verbs:
+  - get
+  - patch
+  - update
