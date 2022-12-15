@@ -13,6 +13,12 @@ kubebuilder init --domain sample-operator.dev --repo github.com/ragul28/kube-ope
 kubebuilder create api --group basic --version v1 --kind BasicVolume
 ```
 
+* Update api types & genarate manifests
+```sh
+make generate
+make manifests
+```
+
 ### Running on the cluster
 1. Install Instances of Custom Resources:
 
