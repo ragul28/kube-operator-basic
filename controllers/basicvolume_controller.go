@@ -50,6 +50,16 @@ func (r *BasicVolumeReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 	l := log.FromContext(ctx)
 	l.Info("Enter Reconcile", "req", req)
 
+	volume := &basicv1.BasicVolume{}
+	r.Get(ctx, types.NamespacedName{Name: req.Name, Namespace: req.Namespace}, volume)
+
+	l.Info("Enter Reconcile", "spec", volume.Spec, "status", volume.Status)
+
+	if volume.Spec.Name != volume.Status.Name {
+		volume.Status.Name = volume.Spec.Name
+		r.Status().Update(ctx, volume)
+	}
+
 	return ctrl.Result{}, nil
 }
 
