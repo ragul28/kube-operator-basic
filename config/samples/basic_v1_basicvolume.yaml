@@ -9,4 +9,5 @@ metadata:
     app.kubernetes.io/created-by: kube-operator-basic
   name: basicvolume-sample
 spec:
-  # TODO(user): Add fields here
+  name: sample
+  size: 1
