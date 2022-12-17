@@ -19,6 +19,11 @@ make generate
 make manifests
 ```
 
+* Update the controller reconcile logic & install crd to cluster
+```sh
+make install
+```
+
 ### Running on the cluster
 1. Install Instances of Custom Resources:
 
