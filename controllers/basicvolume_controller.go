@@ -67,6 +67,8 @@ func (r *BasicVolumeReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 		r.Status().Update(ctx, volume)
 	}
 
+	r.reconcilePVC(ctx, volume, l)
+
 	return ctrl.Result{}, nil
 }
 
