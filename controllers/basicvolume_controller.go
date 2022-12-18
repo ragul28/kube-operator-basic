@@ -18,8 +18,15 @@ package controllers
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/go-logr/logr"
+	v1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/api/errors"
+	"k8s.io/apimachinery/pkg/api/resource"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/types"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
@@ -61,6 +68,42 @@ func (r *BasicVolumeReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 	}
 
 	return ctrl.Result{}, nil
+}
+
+func (r *BasicVolumeReconciler) reconcilePVC(ctx context.Context, volume *basicv1.BasicVolume, l logr.Logger) error {
+	pvc := &v1.PersistentVolumeClaim{}
+	err := r.Get(ctx, types.NamespacedName{Name: volume.Name, Namespace: volume.Namespace}, pvc)
+	if err == nil {
+		l.Info("PVC Found")
+		return nil
+	}
+
+	if !errors.IsNotFound(err) {
+		return err
+	}
+
+	l.Info("PVC Not found")
+
+	storageClass := "default"
+	storageRequest, _ := resource.ParseQuantity(fmt.Sprintf("%dGi", volume.Spec.Size))
+
+	pvc = &v1.PersistentVolumeClaim{
+		ObjectMeta: metav1.ObjectMeta{
+			Namespace: volume.Namespace,
+			Name:      volume.Name,
+		},
+		Spec: v1.PersistentVolumeClaimSpec{
+			StorageClassName: &storageClass,
+			AccessModes:      []v1.PersistentVolumeAccessMode{"ReadWriteOnce"},
+			Resources: v1.ResourceRequirements{
+				Requests: v1.ResourceList{"storage": storageRequest},
+			},
+		},
+	}
+
+	l.Info("Creating PVC")
+	return r.Create(ctx, pvc)
+
 }
 
 // SetupWithManager sets up the controller with the Manager.
