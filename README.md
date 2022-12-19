@@ -1,6 +1,6 @@
 # kube-operator-basic
 
-## Getting Started
+## Getting Started for dev
 
 * Create project using init command
 ```sh
@@ -22,6 +22,16 @@ make manifests
 * Update the controller reconcile logic & install crd to cluster
 ```sh
 make install
+```
+
+* Apply the Sample CRD
+```sh
+kubectl apply -f config/samples/
+```
+
+* Run controller in local
+```sh
+make run
 ```
 
 ### Running on the cluster
